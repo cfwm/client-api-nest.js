@@ -8,47 +8,16 @@
 
     <v-row no-gutters>
       <v-col cols="12">
-        <v-card elevation="5">
-          <v-row no-gutters class="pt-5">
-            <v-col cols="auto">
-              <v-btn
-                class="ml-5"
-                elevation="2"
-                @click="openDialogAddUser"
-              >Cadastrar
-              </v-btn>
-            </v-col>
-            <v-spacer />
-            <v-col cols="auto">
-              <v-autocomplete
-                class="mr-5"
-                v-model="searchModel"
-                :items="users"
-                item-text="name"
-                item-value="_id"
-                outlined
-                dense
-                label="Busca"
-              ></v-autocomplete>
-                <!-- prepend-icon="" -->
-            </v-col>
-          </v-row>
-
-          <v-row no-gutters>
-            <v-col cols="12">
-              <UsersTable
-                class="mx-5 mb-5"
-                :users="users"
-                @openDetails="openDetails"
-                @confirmDeletion="confirmDeletion"
-              />
-            </v-col>
-          </v-row>
-        </v-card>
+        <UsersTable
+          :users="users"
+          @openDialogAddUser="openDialogAddUser"
+          @openDetails="openDetails"
+          @confirmDeletion="confirmDeletion"
+        />
       </v-col>
     </v-row>
 
-    <v-dialog max-width="50vw" v-model="openAddEditUser">
+    <v-dialog persistent max-width="50vw" v-model="openAddEditUser">
       <AddEditUserDialog
         v-if="openAddEditUser"
         :editedUser="selectedUser"
@@ -58,7 +27,7 @@
       />
     </v-dialog>
 
-    <v-dialog max-width="30vw" v-model="openAlertDialog">
+    <v-dialog persistent max-width="30vw" v-model="openAlertDialog">
       <AlertDialog
         v-if="openAlertDialog"
         :title="titleAlertDialog"
@@ -77,6 +46,7 @@ import UsersTable from '@/components/users/UsersTable.vue';
 import AddEditUserDialog from '@/components/users/AddEditUserDialog.vue';
 import AlertDialog from '@/components/utils/AlertDialog.vue'
 export default {
+
   components: { UsersTable, AddEditUserDialog, AlertDialog } ,
 
   data(){
@@ -88,8 +58,6 @@ export default {
       textAlertDialog: '',
       users: [],
       selectedUser: null,
-
-      searchModel: null,
 
     }
   },
@@ -205,6 +173,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .v-icon:hover {
+    color: purple
+  }
 </style>

@@ -1,13 +1,36 @@
 <template>
-  <div>
+  <v-card>
+    <v-card-title>
+      <v-row no-gutters>
+        <v-col cols="9">
+          <v-btn
+            class="ml-5"
+            elevation="2"
+            @click="openDialogAddUser"
+          >Cadastrar
+          </v-btn>
+        </v-col>
+        <v-col cols="3">
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Buscar"
+            single-line
+            hide-details
+            class="mr-5"
+          />
+        </v-col>
+      </v-row>
+    </v-card-title>
+
     <v-data-table
       height="55vh"
       :headers="tableHeaders"
       :items="users"
+      :search="search"
       :items-per-page="5"
-      class="elevation-5"
+      class="elevation-5 mx-10"
       fixed-header
-      hide-default-footer
     >
       <template v-for="header in tableHeaders" v-slot:[`header.${header.value}`]="{}">
         <v-row :key="header.value" no-gutters>
@@ -46,7 +69,7 @@
         </v-row>
       </template>
     </v-data-table>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -57,6 +80,7 @@ export default {
 
   data(){
     return{
+      search: '',
       tableHeaders: [
         { text: 'ID', align: 'start', sortable: true, value: '_id', content: (item, value) => item[value] },
         { text: 'Nome', align: 'start', sortable: true, value: 'name', content: (item, value) => item[value] },
@@ -69,6 +93,10 @@ export default {
   },
 
   methods: {
+    openDialogAddUser(){
+      this.$emit('openDialogAddUser')
+    },
+
     openDetails(item){
       this.$emit('openDetails', item)
     },
