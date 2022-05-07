@@ -59,8 +59,9 @@ export default {
     return{
       tableHeaders: [
         { text: 'ID', align: 'start', sortable: true, value: '_id', content: (item, value) => item[value] },
-        { text: 'Nome', align: 'start', sortable: true, value: 'nome', content: (item, value) => item[value] },
-        { text: 'Idade', align: 'start', sortable: true, value: 'idade', content: (item, value) => item[value] },
+        { text: 'Nome', align: 'start', sortable: true, value: 'name', content: (item, value) => item[value] },
+        { text: 'Sobrenome', align: 'start', sortable: true, value: 'surname', content: (item, value) => item[value] },
+        { text: 'Idade', align: 'start', sortable: true, value: 'age', content: (item, value) => item[value] },
         // { text: 'Endereço', align: 'start', sortable: true, value: 'address', content: (item, value) => item[value] },
         { text: 'Ações', align: 'start', sortable: false, value: 'actions', content: (item, value) => item[value] },
       ]

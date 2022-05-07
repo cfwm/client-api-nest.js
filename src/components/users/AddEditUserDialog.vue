@@ -23,7 +23,20 @@
             label="Nome"
             placeholder="Digite o nome"
             outlined
-            v-model="user.nome"
+            v-model="user.name"
+            type="text"
+            dense
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col cols="12" align-self="end">
+          <v-text-field
+            label="Sobrenome"
+            placeholder="Digite o sobrenome"
+            outlined
+            v-model="user.surname"
             type="text"
             dense
           ></v-text-field>
@@ -36,7 +49,7 @@
             label="Idade"
             placeholder="Digite a idade"
             outlined
-            v-model="user.idade"
+            v-model="user.age"
             type="number"
             @keypress="integerNumberOnly"
             dense
@@ -82,15 +95,16 @@ export default {
     return{
       dialogTitle: 'Adicionar',
       user: {
-        nome: null,
-        idade: null
+        name: null,
+        surname: null,
+        age: null
       }
     }
   },
 
   computed: {
     disabledSaveButton(){
-      return !this.user.nome || !this.user.idade;
+      return !this.user.name || !this.user.surname || !this.user.age;
     }
   },
 
@@ -110,8 +124,9 @@ export default {
       if(this.editedUser) {
         this.$emit('updateUser', {
           id: this.editedUser._id,
-          nome: this.user.nome,
-          idade: this.user.idade
+          name: this.user.name,
+          surname: this.user.surname,
+          age: this.user.age
         });
       }
       else {

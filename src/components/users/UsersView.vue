@@ -24,7 +24,7 @@
                 class="mr-5"
                 v-model="searchModel"
                 :items="users"
-                item-text="nome"
+                item-text="name"
                 item-value="_id"
                 outlined
                 dense
@@ -115,8 +115,9 @@ export default {
     async updateUser(user){
       try {
         const ret = await api.put(`users/${user.id}`, {
-          nome: user.nome,
-          idade: user.idade
+          name: user.name,
+          surname: user.surname,
+          age: user.age
         });
         if(ret.status === 200) {
           await this.closeAddEditUserDialog();
@@ -165,7 +166,7 @@ export default {
     confirmDeletion(item){
       this.selectedUser = item;
       this.titleAlertDialog = 'Exclusão de Usuário';
-      this.textAlertDialog = `Tem certeza de que deseja excluir o usuário ${this.selectedUser.nome} ?`;
+      this.textAlertDialog = `Tem certeza de que deseja excluir o usuário ${this.selectedUser.name} ${this.selectedUser.surname}?`;
       this.showConfirmButtonAlertDialog = true;
       this.openAlertDialog = true;
     },
