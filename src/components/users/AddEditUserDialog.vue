@@ -6,11 +6,9 @@
           {{ dialogTitle }}
         </v-col>
         <v-col cols="6" align="end">
-          <v-btn
-            elevation="2"
-            @click="closeDialog"
-          >Fechar
-          </v-btn>
+          <v-icon @click="closeDialog"
+          >mdi-close
+          </v-icon>
         </v-col>
       </v-row>
     </v-card-title>
@@ -108,19 +106,20 @@ export default {
       this.$emit('closeDialog')
     },
 
-    async saveUser(){
-      if(this.editedUser) await this.updateUser();
-      else await this.createUser();
-      this.closeDialog();
+    saveUser(){
+      if(this.editedUser) {
+        this.$emit('updateUser', {
+          id: this.editedUser._id,
+          nome: this.user.nome,
+          idade: this.user.idade
+        });
+      }
+      else {
+        this.$emit('createUser', this.user);
+      }
     },
 
-    async updateUser(){
-      console.log('updateUser')
-    },
 
-    async createUser(){
-      console.log('createUser')
-    },
 
     integerNumberOnly($event){
       const integerNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];

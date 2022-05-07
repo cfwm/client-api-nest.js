@@ -6,7 +6,46 @@
       :items="users"
       :items-per-page="5"
       class="elevation-5"
-    ></v-data-table>
+      fixed-header
+      hide-default-footer
+    >
+      <template v-for="header in tableHeaders" v-slot:[`header.${header.value}`]="{}">
+        <v-row :key="header.value" no-gutters>
+          <v-col>{{ header.text }}</v-col>
+        </v-row>
+      </template>
+
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-row no-gutters>
+          <v-col>
+            <v-tooltip color="green" bottom>
+              <template v-slot:activator="{ on }">
+                <v-icon
+                  small
+                  v-on="on"
+                  @click="openDetails(item)"
+                >mdi-eye
+                </v-icon>
+              </template>
+              <span>Visualizar</span>
+            </v-tooltip>
+
+            <v-tooltip color="green" bottom>
+              <template v-slot:activator="{ on }">
+                <v-icon
+                  class="ml-2"
+                  small
+                  v-on="on"
+                  @click="confirmDeletion(item)"
+                >mdi-delete
+                </v-icon>
+              </template>
+              <span>Remover</span>
+            </v-tooltip>
+          </v-col>
+        </v-row>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -16,21 +55,33 @@ export default {
     users: { type: Array, default: () => [] }
   },
 
-
-
   data(){
     return{
       tableHeaders: [
-        { text: 'ID', align: 'start', sortable: true, value: '_id' },
-        { text: 'Nome', align: 'start', sortable: true, value: 'nome' },
-        { text: 'Idade', align: 'start', sortable: true, value: 'idade' },
-        // { text: 'Endereço', align: 'start', sortable: true, value: 'address' },
+        { text: 'ID', align: 'start', sortable: true, value: '_id', content: (item, value) => item[value] },
+        { text: 'Nome', align: 'start', sortable: true, value: 'nome', content: (item, value) => item[value] },
+        { text: 'Idade', align: 'start', sortable: true, value: 'idade', content: (item, value) => item[value] },
+        // { text: 'Endereço', align: 'start', sortable: true, value: 'address', content: (item, value) => item[value] },
+        { text: 'Ações', align: 'start', sortable: false, value: 'actions', content: (item, value) => item[value] },
       ]
     }
+  },
+
+  methods: {
+    openDetails(item){
+      this.$emit('openDetails', item)
+    },
+
+    confirmDeletion(item){
+      this.$emit('confirmDeletion', item)
+    },
   }
 }
 </script>
 
-<style>
+<style scoped>
+  .v-icon:hover {
+    color: purple
+  }
 
 </style>
