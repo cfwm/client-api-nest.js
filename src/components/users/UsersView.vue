@@ -118,7 +118,10 @@ export default {
           nome: user.nome,
           idade: user.idade
         });
-        if(ret.status === 200) await this.closeAddEditUserDialog();
+        if(ret.status === 200) {
+          await this.closeAddEditUserDialog();
+          await this.readUsers();
+        }
       } catch (error) {
         const errorData = {
           title: error?.title || 'Erro',
@@ -131,7 +134,10 @@ export default {
     async createUser(user){
       try {
         const ret = await api.post('users', user);
-        if(ret.status === 201) await this.closeAddEditUserDialog();
+        if(ret.status === 201) {
+          await this.closeAddEditUserDialog();
+          await this.readUsers();
+        }
       } catch (error) {
         const errorData = {
           title: error?.title || 'Erro',
@@ -166,8 +172,11 @@ export default {
 
     async deleteUser(){
       try {
-        await api.delete(`users/${this.selectedUser._id}`);
-        await this.closeAlertDialog();
+        const ret = await api.delete(`users/${this.selectedUser._id}`);
+        if(ret.status === 200) {
+          this.closeAlertDialog();
+          await this.readUsers();
+        }
       } catch (error) {
         const errorData = {
           title: error?.title || 'Erro',
@@ -177,13 +186,12 @@ export default {
       }
     },
 
-    async closeAlertDialog(){
+    closeAlertDialog(){
       this.openAlertDialog = false;
       this.showConfirmButtonAlertDialog = false;
       this.selectedUser = null;
       this.titleAlertDialog = '';
       this.textAlertDialog = '';
-      await this.readUsers();
     },
 
     openErrorAlertDialog(error = null){
