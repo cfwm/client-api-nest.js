@@ -4,6 +4,7 @@
       <v-row no-gutters>
         <v-col cols="9">
           <v-btn
+            color="primary"
             class="ml-5"
             elevation="2"
             @click="openDialogAddUser"
@@ -31,6 +32,13 @@
       :items-per-page="5"
       class="elevation-5 mx-10"
       fixed-header
+      :footer-props="{
+        showFirstLastPage: true,
+        firstIcon: 'mdi-arrow-collapse-left',
+        lastIcon: 'mdi-arrow-collapse-right',
+        prevIcon: 'mdi-minus',
+        nextIcon: 'mdi-plus'
+      }"
     >
       <template v-for="header in tableHeaders" v-slot:[`header.${header.value}`]="{}">
         <v-row :key="header.value" no-gutters>
@@ -53,9 +61,10 @@
               <span>Visualizar</span>
             </v-tooltip>
 
-            <v-tooltip color="green" bottom>
+            <v-tooltip color="error" bottom>
               <template v-slot:activator="{ on }">
                 <v-icon
+                  color="error"
                   class="ml-2"
                   small
                   v-on="on"
@@ -109,8 +118,5 @@ export default {
 </script>
 
 <style scoped>
-  .v-icon:hover {
-    color: purple
-  }
 
 </style>

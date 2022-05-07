@@ -174,7 +174,5 @@ export default {
 </script>
 
 <style scoped>
-  .v-icon:hover {
-    color: purple
-  }
+
 </style>

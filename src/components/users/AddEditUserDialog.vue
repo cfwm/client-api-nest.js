@@ -65,6 +65,8 @@
       <v-row no-gutters justify="end">
         <v-col cols="auto">
           <v-btn
+            color="white"
+            class="primary--text"
             elevation="2"
             @click="closeDialog"
           >Cancelar
@@ -73,6 +75,7 @@
 
         <v-col cols="auto">
           <v-btn
+            color="primary"
             class="ml-3"
             elevation="2"
             @click="saveUser"

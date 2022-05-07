@@ -8,5 +8,20 @@ export default new Vuetify({
   lang: {
     locales: { pt },
     current: 'pt'
+  },
+  theme: {
+    themes: {
+      light: {
+        primary: '#e2b874',
+        secondary: '#152e3e',
+        bgTrHover: '#f9fafb',
+        bgButton: '#edeeef',
+        border: '#dfe3e6',
+        error: '#d83636'
+      }
+    }
+  },
+  options: {
+    customProperties: true
   }
 });
