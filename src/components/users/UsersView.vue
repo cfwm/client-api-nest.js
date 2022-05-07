@@ -85,7 +85,9 @@ export default {
         const ret = await api.put(`users/${user.id}`, {
           name: user.name,
           surname: user.surname,
-          age: user.age
+          age: user.age,
+          address: user.address,
+          github: user.github,
         });
         if(ret.status === 200) {
           await this.closeAddEditUserDialog();

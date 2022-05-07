@@ -98,6 +98,7 @@ export default {
         { text: 'CEP', align: 'start', sortable: true, value: 'address.cep', content: (item, value) => item[value] },
         { text: 'Estado', align: 'start', sortable: true, value: 'address.state', content: (item, value) => item[value] },
         { text: 'Cidade', align: 'start', sortable: true, value: 'address.city', content: (item, value) => item[value] },
+        { text: 'Login GitHub', align: 'start', sortable: true, value: 'github.login', content: (item, value) => item[value] },
         { text: 'Ações', align: 'start', sortable: false, value: 'actions', content: (item, value) => item[value] },
       ]
     }
