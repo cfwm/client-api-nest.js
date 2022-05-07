@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import { api } from '@/plugins/axios';
+import { api } from '@/plugins/api';
 import UsersTable from '@/components/users/UsersTable.vue';
 import AddEditUserDialog from '@/components/users/AddEditUserDialog.vue';
-import AlertDialog from '@/components/utils/AlertDialog.vue'
+import AlertDialog from '@/components/utils/AlertDialog.vue';
 export default {
 
   components: { UsersTable, AddEditUserDialog, AlertDialog } ,
@@ -173,6 +173,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

@@ -18,7 +18,7 @@
     <v-card-text>
 
       <v-row no-gutters>
-        <v-col cols="12" align-self="end">
+        <v-col cols="12">
           <v-text-field
             label="Nome"
             placeholder="Digite o nome"
@@ -26,12 +26,12 @@
             v-model="user.name"
             type="text"
             dense
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
 
       <v-row no-gutters>
-        <v-col cols="12" align-self="end">
+        <v-col cols="9">
           <v-text-field
             label="Sobrenome"
             placeholder="Digite o sobrenome"
@@ -39,13 +39,11 @@
             v-model="user.surname"
             type="text"
             dense
-          ></v-text-field>
+          />
         </v-col>
-      </v-row>
-
-      <v-row no-gutters>
-        <v-col cols="12">
+        <v-col cols="3">
           <v-text-field
+            class="pl-2"
             label="Idade"
             placeholder="Digite a idade"
             outlined
@@ -53,7 +51,82 @@
             type="number"
             @keypress="integerNumberOnly"
             dense
-          ></v-text-field>
+          />
+        </v-col>
+      </v-row>
+
+      <v-divider class="mt-n3 mb-3" />
+
+      <v-row no-gutters>
+        <v-col cols="4">
+          <v-text-field
+            label="CEP"
+            placeholder="Digite o CEP"
+            outlined
+            v-model="user.address.cep"
+            v-mask="'#####-###'"
+            @input="completeCep"
+            dense
+          />
+        </v-col>
+        <v-col cols="4">
+          <v-text-field
+            label="Estado"
+            outlined
+            v-model="user.address.state"
+            dense
+            class="px-2"
+          />
+        </v-col>
+        <v-col cols="4">
+          <v-text-field
+            label="Cidade"
+            outlined
+            v-model="user.address.city"
+            dense
+          />
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col cols="6">
+          <v-text-field
+            label="Logradouro"
+            outlined
+            v-model="user.address.street"
+            dense
+            class="pr-1"
+          />
+        </v-col>
+        <v-col cols="6">
+          <v-text-field
+            label="Complemento"
+            outlined
+            v-model="user.address.complement"
+            dense
+            class="pl-1"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col cols="6">
+          <v-text-field
+            label="Número"
+            outlined
+            v-model="user.address.number"
+            dense
+            class="pr-1"
+          />
+        </v-col>
+        <v-col cols="6">
+          <v-text-field
+            label="Código do IBGE"
+            outlined
+            v-model="user.address.ibge"
+            dense
+            class="pl-1"
+          />
         </v-col>
       </v-row>
 
@@ -89,6 +162,7 @@
 </template>
 
 <script>
+import { getCep } from '@/plugins/services';
 export default {
   props: {
     editedUser: { type: Object }
@@ -100,7 +174,17 @@ export default {
       user: {
         name: null,
         surname: null,
-        age: null
+        age: null,
+        address: {
+          cep: null,
+          state: null,
+          city: null,
+          district: null,
+          street: null,
+          number: null,
+          complement: null,
+          ibge: null,
+        }
       }
     }
   },
@@ -137,11 +221,24 @@ export default {
       }
     },
 
-
-
     integerNumberOnly($event){
       const integerNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
       if(!integerNumbers.includes($event.key)) $event.preventDefault();
+    },
+
+    async completeCep(){
+      const cep = this.user.address.cep.replace(/\D/g, "");
+      if(cep.length === 8){
+        console.log('cep', cep)
+        getCep(cep).then(async (response) => {
+          if(response?.data?.uf) this.user.address.state = response.data.uf;
+          if(response?.data?.localidade) this.user.address.city = response.data.localidade;
+          if(response?.data?.bairro) this.user.address.district = response.data.bairro;
+          if(response?.data?.logradouro) this.user.address.street = response.data.logradouro;
+          if(response?.data?.complemento) this.user.address.complement = response.data.complemento;
+          if(response?.data?.ibge) this.user.address.ibge = response.data.ibge;
+        })
+      }
     }
 
   }
