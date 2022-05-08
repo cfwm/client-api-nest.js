@@ -16,7 +16,7 @@ export default new Vuetify({
         secondary: '#152e3e',
         bgTrHover: '#f9fafb',
         bgButton: '#edeeef',
-        border: '#dfe3e6',
+        background: '#dfe3e6',
         error: '#d83636'
       }
     }

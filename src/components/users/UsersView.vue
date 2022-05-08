@@ -1,21 +1,17 @@
 <template>
-  <v-container fluid>
-    <v-row class="mt-5 mb-10" no-gutters>
+  <div>
+    <v-row class="my-5" no-gutters>
       <v-col cols="auto">
-        <b>Teste Engenheiro de Software Full Stack</b>
+        <h1>Teste Engenheiro de Software Full Stack</h1>
       </v-col>
     </v-row>
 
-    <v-row no-gutters>
-      <v-col cols="12">
-        <UsersTable
-          :users="users"
-          @openDialogAddUser="openDialogAddUser"
-          @openDetails="openDetails"
-          @confirmDeletion="confirmDeletion"
-        />
-      </v-col>
-    </v-row>
+    <UsersTable
+      :users="users"
+      @openDialogAddUser="openDialogAddUser"
+      @openDetails="openDetails"
+      @confirmDeletion="confirmDeletion"
+    />
 
     <v-dialog persistent max-width="50vw" v-model="openAddEditUser">
       <AddEditUserDialog
@@ -37,7 +33,7 @@
         @confirmDialog="deleteUser"
       />
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -49,8 +45,8 @@ export default {
 
   components: { UsersTable, AddEditUserDialog, AlertDialog } ,
 
-  data(){
-    return{
+  data() {
+    return {
       openAddEditUser: false,
       openAlertDialog: false,
       showConfirmButtonAlertDialog: false,
@@ -82,7 +78,7 @@ export default {
 
     async updateUser(user){
       try {
-        const ret = await api.put(`users/${user.id}`, {
+        const ret = await api.put(`users/${user._id}`, {
           name: user.name,
           surname: user.surname,
           age: user.age,
@@ -175,6 +171,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

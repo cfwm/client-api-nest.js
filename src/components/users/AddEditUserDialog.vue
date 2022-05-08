@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" width="100%" class="scroll-auto">
+  <v-card height="100%" width="100%" class="auto-scroll">
     <v-card-title>
       <v-row no-gutters>
         <v-col cols="6">
@@ -348,19 +348,8 @@ export default {
     },
 
     saveUser(){
-      if(this.editedUser) {
-        this.$emit('updateUser', {
-          id: this.editedUser._id,
-          name: this.user.name,
-          surname: this.user.surname,
-          age: this.user.age,
-          address: this.user.address,
-          github: this.user.github
-        });
-      }
-      else {
-        this.$emit('createUser', this.user);
-      }
+      if(this.editedUser) this.$emit('updateUser', this.user);
+      else this.$emit('createUser', this.user);
     },
 
     integerNumberOnly($event){
@@ -430,9 +419,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .scroll-auto {
-    overflow-y: auto;
-    overflow-x: auto;
-  }
+<style>
+
 </style>

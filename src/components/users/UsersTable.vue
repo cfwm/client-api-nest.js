@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="5" class="pb-5" rounded="lg">
     <v-card-title>
       <v-row no-gutters>
         <v-col cols="9">
@@ -25,13 +25,12 @@
     </v-card-title>
 
     <v-data-table
-      height="55vh"
+      height="60vh"
       :headers="tableHeaders"
       :items="users"
       :search="search"
-      :items-per-page="5"
-      class="elevation-5 mx-10"
-      fixed-header
+      :items-per-page="10"
+      class="elevation-5 mx-10 rounded-border"
       :footer-props="{
         showFirstLastPage: true,
         firstIcon: 'mdi-arrow-collapse-left',
@@ -121,5 +120,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .rounded-border {
+    border-radius: 10px !important;
+  }
 </style>
