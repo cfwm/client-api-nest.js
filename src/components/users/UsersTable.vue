@@ -93,10 +93,9 @@ export default {
         { text: 'ID', align: 'start', sortable: true, value: '_id', content: (item, value) => item[value] },
         { text: 'Nome', align: 'start', sortable: true, value: 'name', content: (item, value) => item[value] },
         { text: 'Sobrenome', align: 'start', sortable: true, value: 'surname', content: (item, value) => item[value] },
+        { text: 'E-mail', align: 'start', sortable: true, value: 'email', content: (item, value) => item[value] },
         { text: 'Idade', align: 'start', sortable: true, value: 'age', content: (item, value) => item[value] },
         { text: 'CEP', align: 'start', sortable: true, value: 'address.cep', content: (item, value) => item[value] },
-        { text: 'Estado', align: 'start', sortable: true, value: 'address.state', content: (item, value) => item[value] },
-        { text: 'Cidade', align: 'start', sortable: true, value: 'address.city', content: (item, value) => item[value] },
         { text: 'Login GitHub', align: 'start', sortable: true, value: 'github.login', content: (item, value) => item[value] },
         { text: 'Ações', align: 'start', sortable: false, value: 'actions', content: (item, value) => item[value] },
       ]

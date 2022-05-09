@@ -18,7 +18,7 @@
     <v-card-text>
 
       <v-row no-gutters>
-        <v-col cols="12">
+        <v-col cols="6">
           <v-text-field
             label="Nome"
             placeholder="Digite o nome"
@@ -26,12 +26,11 @@
             v-model="user.name"
             type="text"
             dense
+            class="pr-1"
+            :rules="[rules.required]"
           />
         </v-col>
-      </v-row>
-
-      <v-row no-gutters>
-        <v-col cols="9">
+        <v-col cols="6">
           <v-text-field
             label="Sobrenome"
             placeholder="Digite o sobrenome"
@@ -39,11 +38,28 @@
             v-model="user.surname"
             type="text"
             dense
+            class="pl-1"
+            :rules="[rules.required]"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col cols="9">
+          <v-text-field
+            label="E-mail"
+            placeholder="Digite o e-mail"
+            outlined
+            v-model="user.email"
+            type="text"
+            dense
+            class="pr-1"
+            :rules="[rules.required, rules.email]"
           />
         </v-col>
         <v-col cols="3">
           <v-text-field
-            class="pl-2"
+            class="pl-1"
             label="Idade"
             placeholder="Digite a idade"
             outlined
@@ -51,6 +67,7 @@
             type="number"
             @keypress="integerNumberOnly"
             dense
+            :rules="[rules.required]"
           />
         </v-col>
       </v-row>
@@ -299,9 +316,17 @@ export default {
     return{
       dialogTitle: 'Adicionar',
       showGitHubData: false,
+      rules: {
+        required: value => !!value || 'Campo obrigatório.',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'E-mail inválido.'
+        },
+      },
       user: {
         name: null,
         surname: null,
+        email: null,
         age: null,
         address: {
           cep: null,
@@ -330,7 +355,7 @@ export default {
 
   computed: {
     disabledSaveButton(){
-      return !this.user.name || !this.user.surname || !this.user.age;
+      return !this.user.name || !this.user.surname || !this.user.email || !this.user.age;
     }
   },
 
